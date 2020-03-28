@@ -16,6 +16,14 @@ app.use(bodyParser.json());
 
 
 // app routes
+app.get('/', (req, res) => {
+  const message = "halo aga!";
+  console.log(message);
+  return res.json({
+    message: message
+  });
+});
+
 app.post('/webhook', (req, res) => {
   let body = req.body;
 
