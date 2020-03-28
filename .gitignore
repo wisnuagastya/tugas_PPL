@@ -1,1 +1,4 @@
-/node_modules
+.idea
+config/default.json
+node_modules
+ngrok
