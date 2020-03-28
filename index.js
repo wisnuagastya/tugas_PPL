@@ -11,7 +11,9 @@ app.use(bodyParser.json());
 
 let users = {};
 
-app.listen(8989, () => console.log('Example app listening on port 8989!'));
+const port = process.env.PORT || 3000
+
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 app.get('/', (req, res) => res.status(200).json('Hello Aga!'));
 
