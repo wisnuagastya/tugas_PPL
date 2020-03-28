@@ -13,7 +13,7 @@ let users = {};
 
 app.listen(8989, () => console.log('Example app listening on port 8989!'));
 
-app.get('/', (req, res) => res.send('Hello World!'));
+app.get('/', (req, res) => res.status(200).json('Hello Aga!'));
 
 
 // Creates the endpoint for our webhook
