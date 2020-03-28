@@ -25,6 +25,9 @@ app.get('/', (req, res) => {
 });
 
 app.post('/webhook', (req, res) => {
+  const message = "halo aga!, ini webhook post";
+  console.log(message);
+
   let body = req.body;
 
   // Checks this is an event from a page subscription
@@ -50,6 +53,9 @@ app.post('/webhook', (req, res) => {
 
 // Adds support for GET requests to our webhook
 app.get('/webhook', (req, res) => {
+  const message = "halo aga!, ini webhook get";
+  console.log(message);
+
   // Your verify token. Should be a random string.
   let VERIFY_TOKEN = "coba1234";
 
