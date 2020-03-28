@@ -24,12 +24,13 @@ app.get('/', (req, res) => {
   });
 });
 
+
 app.post('/webhook', (req, res) => {
   let body = req.body;
 
   // Checks this is an event from a page subscription
   if (body.object === 'page') {
-
+    console.log('telek')
     // Iterates over each entry - there may be multiple if batched
     body.entry.forEach(function (entry) {
 
@@ -37,18 +38,7 @@ app.post('/webhook', (req, res) => {
       // will only ever contain one message, so we get index 0
       let webhook_event = entry.messaging[0];
       console.log(webhook_event);
-
-      // Get the sender PSID
-      let sender_psid = webhook_event.sender.id;
-      console.log('Sender PSID: ' + sender_psid);
-
-      // Check if the event is a message or postback and
-      // pass the event to the appropriate handler function
-      if (webhook_event.message) {
-        console.log(webhook_event.message)
-      } else if (webhook_event.postback) {
-        console.log(webhook_event.postback)
-      }
+      console.log(entry);
     });
 
     // Returns a '200 OK' response to all requests
