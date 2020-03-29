@@ -29,21 +29,11 @@ app.post('/webhook', (req, res) => {
 
             // Iterates over each entry - there may be multiple if batched
             body.entry.forEach(function (entry) {
-                console.log(entry);
+                // console.log(entry);
                 // Gets the message. entry.messaging is an array, but
                 // will only ever contain one message, so we get index 0
                 let webhook_event = entry.messaging[0];
                 console.log(webhook_event);
-
-                // let messaging_events = entry[0].messaging_events;
-                // for (let i = 0; i < messaging_events.length; i++) {
-                //     let event = messaging_events[i];
-                //     let sender = event.sender.id
-                //     if (event.message && event.message.text) {
-                //         let text = event.message.text;
-                //         sendText(sender, "text echo: " + text.substring(0, 100));
-                //     }
-                // }
             });
 
             // Returns a '200 OK' response to all requests
@@ -55,26 +45,6 @@ app.post('/webhook', (req, res) => {
     }
 
 });
-
-function sendText(sender, text) {
-    let messageData = { text: text }
-    request({
-        url: "https://graph.facebook.com/v6.0/me/messages",
-        qs: { access_token, token },
-        method: "POST",
-        json: {
-            message_type: "RESPONSE",
-            recipient: { id: sender },
-            message: messageData,
-        }
-    }, function (error, response, body) {
-        if (error) {
-            console.log("sending error");
-        } else if (response.body.error) {
-            console.log("response body error");
-        }
-    });
-}
 
 // Adds support for GET requests to our webhook
 app.get('/webhook', (req, res) => {
