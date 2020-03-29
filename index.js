@@ -35,15 +35,15 @@ app.post('/webhook', (req, res) => {
                 let webhook_event = entry.messaging[0];
                 console.log(webhook_event);
 
-                let messaging_events = entry[0].messaging_events;
-                for (let i = 0; i < messaging_events.length; i++) {
-                    let event = messaging_events[i];
-                    let sender = event.sender.id
-                    if (event.message && event.message.text) {
-                        let text = event.message.text;
-                        sendText(sender, "text echo: " + text.substring(0, 100));
-                    }
-                }
+                // let messaging_events = entry[0].messaging_events;
+                // for (let i = 0; i < messaging_events.length; i++) {
+                //     let event = messaging_events[i];
+                //     let sender = event.sender.id
+                //     if (event.message && event.message.text) {
+                //         let text = event.message.text;
+                //         sendText(sender, "text echo: " + text.substring(0, 100));
+                //     }
+                // }
             });
 
             // Returns a '200 OK' response to all requests
