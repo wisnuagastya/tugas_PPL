@@ -36,6 +36,30 @@ app.post('/webhook', (req, res) => {
                 console.log("===atas===")
                 console.log(webhook_event);
                 console.log("===bawah===")
+
+
+                request({
+                    "uri": "https://graph.facebook.com/v6.0/me/messages",
+                    "qs": { "access_token": token },
+                    "method": "POST",
+                    "json": {
+                        "messaging_type": "Text",
+                        "recipient": {
+                            "id": webhook_event.sender.id
+                        },
+                        "message": {
+                            "text": "hello, aga!"
+                        }
+                    }
+                }, (err, res, body) => {
+                    if (!err) {
+                        if (cb) {
+                            cb();
+                        }
+                    } else {
+                        console.error("Unable to send message:" + err);
+                    }
+                });
             });
 
             // Returns a '200 OK' response to all requests
