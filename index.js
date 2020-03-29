@@ -17,7 +17,7 @@ app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 app.get('/', (req, res) => res.status(200).json('Hello Aga!'));
 
-const token = "EAAHmieqXw8sBAPSkPc2etvGhAK02CTmZBlbDVQ1FvfdddSUTyFXImvhISCe9oebLBlZBJCWcFtT0SygDL0Wzv7I8ETFnbCwQp45YzPZAJ1U0rOCZBUZCVyhF0JEtzeY6rm5zZCn4XSo6fBKVDQvFJC81iXirXfVLShsVjy8nx7yQxRQEgQTtBQ"
+const token = "EAAMylxgroisBAKJkmHYGvWUpPeeUZBVWqkd7OGT7dcC4nJ3ZAEHhZBZBuWx6GiiDByZA7u3T8dgklZCIqaN4PdhQRuCZC83pqzKZBota7PANs0tyIwxN5Tt82FbDEZBGQWwtRfyl7DhjUEY5rWXin0i2rCt2hIg8kyzy6KmsbtEzIyLYDhQJTN9pQ"
 
 // Adds support for GET requests to our webhook
 app.get('/webhook', (req, res) => {
