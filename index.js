@@ -71,7 +71,20 @@ app.post('/webhook', async (req, res) => {
                 for (let i = 0; i < entry.messaging.length; i++) {
                     console.log("index ke + " + i);
                     console.log(entry.messaging[i]);
-                    await sendText(entry.messaging[i].id, entry.messaging[i].text);
+
+                    const send = (await axios.post(`https://graph.facebook.com/v6.0/me/messages?access_token=${token}`, {
+                        data: {
+                            messaging_type: "RESPONSE",
+                            recipient: {
+                                id: entry.messaging[i].id
+                            },
+                            message: {
+                                text: entry.messaging[i].text
+                            }
+                        }
+                    })).data;
+
+                    console.log(send)
                 }
 
             });
@@ -87,17 +100,17 @@ app.post('/webhook', async (req, res) => {
 });
 
 async function sendText(sender, text) {
-    const send = (await axios.post(`https://graph.facebook.com/v6.0/me/messages?access_token=${token}`, {
-        data: {
-            messaging_type: "RESPONSE",
-            recipient: {
-                id: sender
-            },
-            message: {
-                text: text
-            }
-        }
-    })).data;
+    // const send = (await axios.post(`https://graph.facebook.com/v6.0/me/messages?access_token=${token}`, {
+    //     data: {
+    //         messaging_type: "RESPONSE",
+    //         recipient: {
+    //             id: sender
+    //         },
+    //         message: {
+    //             text: text
+    //         }
+    //     }
+    // })).data;
 
-    console.log(send)
+    // console.log(send)
 }
