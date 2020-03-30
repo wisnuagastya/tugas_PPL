@@ -64,19 +64,11 @@ app.post('/webhook', (req, res) => {
                 // console.log("======== message =========")
                 // console.log(webhook_event);
 
-                // console.log(`sender: ${webhook_event.sender}`);
-                // console.log(`recipient: ${webhook_event.recipient}`);
-                // console.log(`title: ${webhook_event.title}`);
-
                 for (let i = 0; i < entry.messaging.length; i++) {
                     console.log("index ke + " + i);
                     console.log(entry.messaging[i]);
+                    sendText(entry.messaging[i].id, entry.messaging[i].text);
                 }
-
-                // for (let event of webhook_event) {
-                //     console.log(event.sender.id)
-                //     sendText(event.sender.id);
-                // }
 
             });
 
@@ -90,18 +82,18 @@ app.post('/webhook', (req, res) => {
 
 });
 
-function sendText(sender) {
+function sendText(sender, text) {
     request({
         "url": "https://graph.facebook.com/v6.0/me/messages",
         "qs": { "access_token": token },
         "method": "POST",
         "json": {
-            "messaging_type": "Text",
+            "messaging_type": "RESPONSE",
             "recipient": {
                 "id": sender
             },
             "message": {
-                "text": "hello, aga!"
+                "text": text
             }
         }
     })
