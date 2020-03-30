@@ -1,4 +1,6 @@
 'use strict';
+const axios = require('axios');
+
 let express = require('express'),
     bodyParser = require('body-parser'),
     app = express(),
@@ -84,19 +86,32 @@ app.post('/webhook', (req, res) => {
 
 });
 
-function sendText(sender, text) {
-    request({
-        "url": "https://graph.facebook.com/v6.0/me/messages",
-        "qs": { "access_token": token },
-        "method": "POST",
-        "json": {
-            "messaging_type": "RESPONSE",
-            "recipient": {
-                "id": sender
+async function sendText(sender, text) {
+    // request({
+    //     "url": "https://graph.facebook.com/v6.0/me/messages",
+    //     "qs": { "access_token": token },
+    //     "method": "POST",
+    //     "json": {
+    //         "messaging_type": "RESPONSE",
+    //         "recipient": {
+    //             "id": sender
+    //         },
+    //         "message": {
+    //             "text": text
+    //         }
+    //     }
+    // })
+    const send = (await axios.post(`https://graph.facebook.com/v6.0/me/messages?access_token=${token}`, {
+        data: {
+            messaging_type: "RESPONSE",
+            recipient: {
+                id: sender
             },
-            "message": {
-                "text": text
+            message: {
+                text: text
             }
         }
-    })
+    })).data;
+
+    console.log(send)
 }
