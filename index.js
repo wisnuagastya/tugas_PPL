@@ -1,6 +1,4 @@
 'use strict';
-const axios = require('axios');
-
 let express = require('express'),
     bodyParser = require('body-parser'),
     app = express(),
@@ -52,6 +50,7 @@ app.get('/webhook', (req, res) => {
 // Creates the endpoint for our webhook
 app.post('/webhook', async (req, res) => {
     try {
+        const axios = require('axios');
         let body = req.body;
 
         // Checks this is an event from a page subscription
@@ -72,7 +71,7 @@ app.post('/webhook', async (req, res) => {
                     console.log("index ke + " + i);
                     console.log(entry.messaging[i]);
 
-                    const send = (await axios.post(`https://graph.facebook.com/v6.0/me/messages?access_token=${token}`, {
+                    const send = await(axios.post(`https://graph.facebook.com/v6.0/me/messages?access_token=${token}`), {
                         data: {
                             messaging_type: "RESPONSE",
                             recipient: {
@@ -82,7 +81,7 @@ app.post('/webhook', async (req, res) => {
                                 text: entry.messaging[i].text
                             }
                         }
-                    })).data;
+                    }).data;
 
                     console.log(send)
                 }
