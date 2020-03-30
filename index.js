@@ -71,19 +71,13 @@ app.post('/webhook', async (req, res) => {
                     console.log("index ke + " + i);
                     console.log(entry.messaging[i]);
 
-                    const send = await(axios.post(`https://graph.facebook.com/v6.0/me/messages?access_token=${token}`), {
+                    sendMessage({
                         data: {
-                            messaging_type: "RESPONSE",
-                            recipient: {
-                                id: entry.messaging[i].id
-                            },
-                            message: {
-                                text: entry.messaging[i].text
-                            }
+                            accessToken: token,
+                            recipient_id: entry.messaging[i].sender.id,
+                            message: entry.messaging[i].text
                         }
-                    }).data;
-
-                    console.log(send)
+                    });
                 }
 
             });
@@ -98,18 +92,25 @@ app.post('/webhook', async (req, res) => {
 
 });
 
-async function sendText(sender, text) {
-    // const send = (await axios.post(`https://graph.facebook.com/v6.0/me/messages?access_token=${token}`, {
-    //     data: {
-    //         messaging_type: "RESPONSE",
-    //         recipient: {
-    //             id: sender
-    //         },
-    //         message: {
-    //             text: text
-    //         }
-    //     }
-    // })).data;
+const sendMessage = async (data) => {
+    try {
+        const send = (await axios.post(`${process.env.FB_HOST}/me/messages?access_token=${data.accessToken}`, {
+            data: {
+                messaging_type: "RESPONSE",
+                recipient: {
+                    id: data.recipient_id
+                },
+                message: {
+                    text: data.message
+                }
+            }
+        })).data;
 
-    // console.log(send)
+        console.log(send)
+        return Promise.resolve({ success: true, data: send });
+    }
+    catch (err) {
+        console.log(err.message)
+        return Promise.reject({ success: false })
+    }
 }
