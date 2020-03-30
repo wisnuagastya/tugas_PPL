@@ -47,10 +47,11 @@ app.get('/webhook', (req, res) => {
     }
 });
 
+const axios = require('axios');
+
 // Creates the endpoint for our webhook
 app.post('/webhook', async (req, res) => {
     try {
-        const axios = require('axios');
         let body = req.body;
 
         // Checks this is an event from a page subscription
