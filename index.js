@@ -50,7 +50,7 @@ app.get('/webhook', (req, res) => {
 const axios = require('axios');
 
 // Creates the endpoint for our webhook
-app.post('/webhook', (req, res) => {
+app.post('/webhook', async (req, res) => {
     try {
         let body = req.body;
 
@@ -68,7 +68,7 @@ app.post('/webhook', (req, res) => {
                         message: entry.messaging[i].text
                     }
 
-                    const send = (axios.post(`${process.env.FB_HOST}/me/messages?access_token=${data.accessToken}`, {
+                    await(axios.post(`${process.env.FB_HOST}/me/messages?access_token=${data.accessToken}`, {
                         data: {
                             messaging_type: "RESPONSE",
                             recipient: {
