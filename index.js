@@ -68,10 +68,15 @@ app.post('/webhook', (req, res) => {
                 // console.log(`recipient: ${webhook_event.recipient}`);
                 // console.log(`title: ${webhook_event.title}`);
 
-                for (let event of webhook_event) {
-                    console.log(event.sender.id)
-                    sendText(event.sender.id);
+                for (let i = 0; i < webhook_event.length; i++) {
+                    console.log("index ke + " + i);
+                    console.log(webhook_event[i]);
                 }
+
+                // for (let event of webhook_event) {
+                //     console.log(event.sender.id)
+                //     sendText(event.sender.id);
+                // }
 
             });
 
