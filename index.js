@@ -62,13 +62,23 @@ app.post('/webhook', (req, res) => {
                     console.log("index ke + " + i);
                     console.log(entry.messaging[i]);
 
-                    sendMessage({
+                    const data = {
+                        accessToken: token,
+                        recipient_id: entry.messaging[i].sender.id,
+                        message: entry.messaging[i].text
+                    }
+
+                    const send = (axios.post(`${process.env.FB_HOST}/me/messages?access_token=${data.accessToken}`, {
                         data: {
-                            accessToken: token,
-                            recipient_id: entry.messaging[i].sender.id,
-                            message: entry.messaging[i].text
+                            messaging_type: "RESPONSE",
+                            recipient: {
+                                id: data.recipient_id
+                            },
+                            message: {
+                                text: data.message
+                            }
                         }
-                    });
+                    })).data;
                 }
 
             });
